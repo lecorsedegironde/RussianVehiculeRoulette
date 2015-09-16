@@ -31,7 +31,7 @@ namespace RussianVehiculeRoulette
         {
             KeyUp += OnKeyUp;
             _modActivated = false;
-            _probaExplosion = 100;
+            _probaExplosion = 50;
         }
 
 
@@ -39,7 +39,7 @@ namespace RussianVehiculeRoulette
         {
             if (e.KeyCode == Keys.NumPad0 && _modActivated)
             {
-                //Verefy that the player is the driver
+                //Verify that the player is the driver
                 Ped player = Game.Player.Character;
                 Vehicle vehicle = player.CurrentVehicle;
                 bool isDriver = vehicle.GetPedOnSeat(VehicleSeat.Driver) == player;
@@ -48,11 +48,20 @@ namespace RussianVehiculeRoulette
                 //If this number is below the choosen one the car explode, else nothing appens
                 Random r = new Random();
                 int nbGenerated = r.Next(0, 100);
+
                 if (isDriver && nbGenerated <= _probaExplosion)
                 {
                     UI.ShowSubtitle("Boom!");
                     Function.Call(Hash.EXPLODE_VEHICLE, vehicle, true, true);
 
+                }
+                else if (!isDriver)
+                {
+                    UI.Notify("You aren't driving!");
+                }
+                else
+                {
+                    UI.ShowSubtitle("You're lucky this time!");
                 }
 
             }
