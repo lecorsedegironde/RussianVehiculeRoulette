@@ -52,7 +52,7 @@ namespace RussianVehiculeRoulette
                 if (isDriver && nbGenerated <= _probaExplosion)
                 {
                     UI.ShowSubtitle("Boom!");
-                    Function.Call(Hash.EXPLODE_VEHICLE, vehicle, true, true);
+                    vehicle.Explode();
 
                 }
                 else if (!isDriver)
